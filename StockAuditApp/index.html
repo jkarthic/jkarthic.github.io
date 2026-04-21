@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stock Audit – Support</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+           max-width: 800px; margin: 60px auto; padding: 0 24px;
+           color: #1c1c1e; line-height: 1.7; }
+    h1   { font-size: 2rem; margin-bottom: 4px; }
+    h2   { font-size: 1.3rem; margin-top: 48px; color: #0071e3; border-bottom: 1px solid #e5e5ea; padding-bottom: 6px; }
+    h3   { font-size: 1rem; margin-top: 28px; margin-bottom: 4px; }
+    p, li { font-size: 1rem; }
+    a    { color: #0071e3; }
+    code { background: #f2f2f7; padding: 2px 6px; border-radius: 4px;
+           font-size: 0.875rem; font-family: "SF Mono", Menlo, monospace; }
+    pre  { background: #1c1c1e; color: #f2f2f7; border-radius: 10px;
+           padding: 16px 20px; overflow-x: auto; font-size: 0.85rem;
+           font-family: "SF Mono", Menlo, monospace; line-height: 1.6; }
+    pre .key   { color: #ff9f0a; }
+    pre .str   { color: #30d158; }
+    pre .num   { color: #64d2ff; }
+    pre .bool  { color: #bf5af2; }
+    pre .null  { color: #ff453a; }
+    .endpoint  { display: flex; align-items: baseline; gap: 10px; margin-bottom: 6px; }
+    .method    { display: inline-block; padding: 2px 9px; border-radius: 5px;
+                 font-size: 0.75rem; font-weight: 700; font-family: "SF Mono", Menlo, monospace;
+                 flex-shrink: 0; }
+    .get  { background: #d1f0e0; color: #1a7a45; }
+    .post { background: #fde8c8; color: #9c5300; }
+    .path { font-family: "SF Mono", Menlo, monospace; font-size: 0.95rem; }
+    .note { background: #f2f8ff; border-left: 4px solid #0071e3; padding: 10px 14px;
+            border-radius: 0 8px 8px 0; font-size: 0.9rem; margin: 12px 0; }
+    .warn { background: #fff8ec; border-left: 4px solid #ff9f0a; padding: 10px 14px;
+            border-radius: 0 8px 8px 0; font-size: 0.9rem; margin: 12px 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin: 12px 0; }
+    th    { text-align: left; padding: 8px 10px; background: #f2f2f7;
+            border-bottom: 2px solid #d1d1d6; }
+    td    { padding: 8px 10px; border-bottom: 1px solid #e5e5ea; vertical-align: top; }
+    td code { font-size: 0.82rem; }
+    hr    { border: none; border-top: 1px solid #e5e5ea; margin: 40px 0; }
+    footer { font-size: 0.85rem; color: #8e8e93; margin-top: 60px; }
+
+    /* nav */
+    nav { margin: 24px 0 40px; padding: 16px 20px;
+          background: #f2f2f7; border-radius: 12px; }
+    nav ul { margin: 0; padding: 0 0 0 18px; columns: 2; }
+    nav li { font-size: 0.9rem; margin-bottom: 4px; }
+  </style>
+</head>
+<body>
+
+  <h1>Stock Audit</h1>
+  <p>Support &amp; API Reference for the <strong>Stock Audit</strong> iOS app.</p>
+
+  <nav>
+    <strong>Contents</strong>
+    <ul>
+      <li><a href="#getting-started">Getting Started</a></li>
+      <li><a href="#how-to-audit">How to Conduct an Audit</a></li>
+      <li><a href="#valuation">Valuation Summary</a></li>
+      <li><a href="#history">Audit History</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#api">Backend API Reference</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── USER GUIDE ─────────────────────────────────────────────── -->
+
+  <h2 id="getting-started">Getting Started</h2>
+  <p>Stock Audit connects to your own hosted inventory management server. Before signing in you will need:</p>
+  <ul>
+    <li>The base URL of your server that is exposing the Stock Audit API documented <a href="#api">here</a> (e.g. <code>https://yourdomain.com</code>)</li>
+    <li>A valid username and password issued by your administrator to connect to the above API server</li>
+  </ul>
+  <p>Enter these on the Sign In screen and tap <strong>Sign In</strong>.</p>
+
+  <h2 id="how-to-audit">How to Conduct an Audit</h2>
+  <ol>
+    <li>After signing in, tap the <strong>+</strong> button on the Audit History screen.</li>
+    <li>Select the category of items you want to audit.</li>
+    <li>The app presents items one at a time. Enter the physical stock count you observe on the shelf or in the stockroom.</li>
+    <li>Tap <strong>Submit &amp; Continue</strong> to record the count and advance to the next item. If the physical count matches the system stock exactly, tap <strong>Matching with System Stock</strong> instead.</li>
+    <li>Once all items are counted a completion summary is shown. Open <strong>Valuation Summary</strong> to review discrepancies.</li>
+  </ol>
+  <p>To correct a previously submitted count, open the audit from Audit History, then <strong>long-press</strong> any item row to edit it.</p>
+
+  <h2 id="valuation">Valuation Summary</h2>
+  <p>The Valuation Summary shows:</p>
+  <ul>
+    <li><strong>Shortage items</strong> – products where the physical count is lower than the system stock, with the financial value of the gap.</li>
+    <li><strong>Excess items</strong> – products where the physical count is higher than the system stock, with the financial value of the excess.</li>
+    <li><strong>Net position</strong> – the overall surplus or deficit across all discrepancies.</li>
+  </ul>
+  <p>Tap the share icon to export the report as plain text and send it via Mail, Messages, or any other app.</p>
+
+  <h2 id="history">Audit History</h2>
+  <p>The home screen lists all audits for the current calendar month. Pull down to refresh. Tap any audit to view its item-level detail. Incomplete audits can be resumed by tapping <strong>Continue</strong>.</p>
+
+  <h2 id="faq">Frequently Asked Questions</h2>
+
+  <p><strong>The app says "Could Not Connect" on the login screen.</strong><br>
+  Check that your device is connected to the internet, and that the server URL is reachable. Ensure that the username and password provided are valid and correct.</p>
+
+  <p><strong>Can I use the app without a server?</strong><br>
+  No. Stock Audit is a client app that requires a compatible backend server. Please refer to the <a href="#api">Backend API Reference</a> for the required endpoints.</p>
+
+  <p><strong>Is my data sent to a third party?</strong><br>
+  No. All data is transmitted directly between your iPhone and your own server. Stock Audit does not send any data to external services.</p>
+
+  <p><strong>How do I add new products or units?</strong><br>
+  Products and units are managed on the server side. Please refer to your inventory system's documentation or contact your server administrator.</p>
+
+  <hr />
+
+  <!-- ── API REFERENCE ───────────────────────────────────────────── -->
+
+  <h2 id="api">Backend API Reference</h2>
+  <p>
+    Stock Audit talks to a REST API served from the base URL you configure at sign-in.
+    All endpoints accept and return <strong>JSON</strong>.
+    Authentication is session-based (Django-style): a successful login sets a
+    <code>sessionid</code> cookie that must be sent with every subsequent request.
+    POST requests also require a <code>X-CSRFToken</code> header carrying the value of
+    the <code>csrftoken</code> cookie (obtained after login). The login endpoint itself
+    is CSRF-exempt.
+  </p>
+
+  <div class="note">
+    <strong>Base URL:</strong> All paths below are relative to the server base URL the user enters in the app (e.g. <code>https://yourdomain.com</code>).
+  </div>
+
+  <!-- 1. Login -->
+  <h3>1. Login</h3>
+  <div class="endpoint">
+    <span class="method post">POST</span>
+    <span class="path">/api/login/</span>
+  </div>
+  <p>Authenticates the user and opens a session. CSRF-exempt — no token needed for this call.</p>
+
+  <p><strong>Request body</strong></p>
+  <pre><span class="key">"username"</span>: <span class="str">"john"</span>,
+<span class="key">"password"</span>: <span class="str">"secret"</span></pre>
+
+  <p><strong>Success response — HTTP 200</strong></p>
+  <pre><span class="key">"ok"</span>: <span class="bool">true</span>,
+<span class="key">"username"</span>: <span class="str">"john"</span>,
+<span class="key">"csrftoken"</span>: <span class="str">"abc123..."</span></pre>
+
+  <p><strong>Failure response — HTTP 400 / 401</strong></p>
+  <pre><span class="key">"ok"</span>: <span class="bool">false</span>,
+<span class="key">"error"</span>: <span class="str">"Invalid credentials."</span></pre>
+
+  <p>On success the server must set a <code>Set-Cookie: sessionid=...</code> header (and optionally <code>csrftoken=...</code>). The app stores both cookies and attaches them to all subsequent requests automatically.</p>
+
+  <!-- 2. Unit descriptions -->
+  <h3>2. Get Available Audit Units</h3>
+  <div class="endpoint">
+    <span class="method get">GET</span>
+    <span class="path">/api/audit/unit_descriptions/</span>
+  </div>
+  <p>Returns the list of categories/locations that can be audited.</p>
+
+  <p><strong>Response — HTTP 200</strong></p>
+  <pre><span class="key">"units"</span>: [
+  {
+    <span class="key">"unitcode"</span>: <span class="num">1</span>,
+    <span class="key">"unitdescription"</span>: <span class="str">"Warehouse A"</span>
+  },
+  ...
+]</pre>
+
+  <!-- 3. Start audit -->
+  <h3>3. Start a New Audit</h3>
+  <div class="endpoint">
+    <span class="method post">POST</span>
+    <span class="path">/api/audit/start/</span>
+  </div>
+  <p>Creates a new audit session for the given unit and returns its metadata.</p>
+
+  <p><strong>Request body</strong></p>
+  <pre><span class="key">"unit_description"</span>: <span class="str">"Warehouse A"</span></pre>
+
+  <p><strong>Response — HTTP 200</strong></p>
+  <pre><span class="key">"audit_id"</span>: <span class="num">42</span>,
+<span class="key">"unit_description"</span>: <span class="str">"Warehouse A"</span>,
+<span class="key">"total_items"</span>: <span class="num">120</span>,
+<span class="key">"username"</span>: <span class="str">"john"</span></pre>
+
+  <!-- 4. Next item -->
+  <h3>4. Get Next Unaudited Item</h3>
+  <div class="endpoint">
+    <span class="method get">GET</span>
+    <span class="path">/api/audit/{audit_id}/next_item/</span>
+  </div>
+  <p>Returns the next product that has not yet been manually counted. When all items have been counted, returns <code>"done": true</code>.</p>
+
+  <p><strong>Response — item pending (HTTP 200)</strong></p>
+  <pre><span class="key">"done"</span>: <span class="bool">false</span>,
+<span class="key">"audit_id"</span>: <span class="num">42</span>,
+<span class="key">"productcode"</span>: <span class="str">"P001"</span>,
+<span class="key">"productname"</span>: <span class="str">"Paracetamol 500mg"</span>,
+<span class="key">"computer_stock"</span>: <span class="num">100.0</span>,
+<span class="key">"manual_stock"</span>: <span class="null">null</span></pre>
+
+  <p><strong>Response — audit complete (HTTP 200)</strong></p>
+  <pre><span class="key">"done"</span>: <span class="bool">true</span></pre>
+
+  <!-- 5. Update stock -->
+  <h3>5. Submit Manual Count</h3>
+  <div class="endpoint">
+    <span class="method post">POST</span>
+    <span class="path">/api/audit/{audit_id}/update_stock/</span>
+  </div>
+  <p>Records the physical count for one product. Can also be called to overwrite an existing count (used by the edit flow).</p>
+
+  <p><strong>Request body</strong></p>
+  <pre><span class="key">"productcode"</span>: <span class="str">"P001"</span>,
+<span class="key">"manual_stock"</span>: <span class="num">95.0</span></pre>
+
+  <p><strong>Response — HTTP 200</strong><br>
+  Any JSON body (app ignores it). A <code>200</code> status is sufficient.</p>
+
+  <!-- 6. Status -->
+  <h3>6. Get Audit Status</h3>
+  <div class="endpoint">
+    <span class="method get">GET</span>
+    <span class="path">/api/audit/{audit_id}/status/</span>
+  </div>
+  <p>Returns the current progress counters for an audit.</p>
+
+  <p><strong>Response — HTTP 200</strong></p>
+  <pre><span class="key">"audit_id"</span>: <span class="num">42</span>,
+<span class="key">"unit_description"</span>: <span class="str">"Warehouse A"</span>,
+<span class="key">"completed"</span>: <span class="num">80</span>,
+<span class="key">"total"</span>: <span class="num">120</span>,
+<span class="key">"remaining"</span>: <span class="num">40</span>,
+<span class="key">"username"</span>: <span class="str">"john"</span></pre>
+
+  <div class="warn">
+    <strong>Note:</strong> The app reads <code>"completed"</code> as an integer (item count), not as a boolean.
+  </div>
+
+  <!-- 7. List audits -->
+  <h3>7. List Audits</h3>
+  <div class="endpoint">
+    <span class="method get">GET</span>
+    <span class="path">/api/audit/list/?start_date=YYYY-MM-DD&amp;end_date=YYYY-MM-DD</span>
+  </div>
+  <p>Returns all audits started within the given date range for the authenticated user.</p>
+
+  <p><strong>Response — HTTP 200</strong></p>
+  <pre><span class="key">"audits"</span>: [
+  {
+    <span class="key">"audit_id"</span>: <span class="num">42</span>,
+    <span class="key">"unit_description"</span>: <span class="str">"Warehouse A"</span>,
+    <span class="key">"completed"</span>: <span class="bool">true</span>,
+    <span class="key">"start_datetime"</span>: <span class="str">"2026-04-01T09:30:00Z"</span>,
+    <span class="key">"end_datetime"</span>: <span class="str">"2026-04-01T10:15:00Z"</span>,
+    <span class="key">"completed_items"</span>: <span class="num">120</span>,
+    <span class="key">"total_items"</span>: <span class="num">120</span>,
+    <span class="key">"username"</span>: <span class="str">"john"</span>
+  },
+  ...
+]</pre>
+
+  <p>Datetime strings must be ISO 8601 format (e.g. <code>2026-04-01T09:30:00Z</code> or with fractional seconds).</p>
+
+  <!-- 8. All items -->
+  <h3>8. Get All Audit Items</h3>
+  <div class="endpoint">
+    <span class="method get">GET</span>
+    <span class="path">/api/audit/{audit_id}/items/</span>
+  </div>
+  <p>Returns every item in the audit, including those not yet counted. Used to display the detail table.</p>
+
+  <p><strong>Response — HTTP 200</strong></p>
+  <pre><span class="key">"audit_id"</span>: <span class="num">42</span>,
+<span class="key">"unit_description"</span>: <span class="str">"Warehouse A"</span>,
+<span class="key">"username"</span>: <span class="str">"john"</span>,
+<span class="key">"items"</span>: [
+  {
+    <span class="key">"productcode"</span>: <span class="str">"P001"</span>,
+    <span class="key">"productname"</span>: <span class="str">"Paracetamol 500mg"</span>,
+    <span class="key">"computer_stock"</span>: <span class="num">100.0</span>,
+    <span class="key">"manual_stock"</span>: <span class="num">95.0</span>
+  },
+  {
+    <span class="key">"productcode"</span>: <span class="str">"P002"</span>,
+    <span class="key">"productname"</span>: <span class="str">"Amoxicillin 250mg"</span>,
+    <span class="key">"computer_stock"</span>: <span class="num">50.0</span>,
+    <span class="key">"manual_stock"</span>: <span class="null">null</span>
+  },
+  ...
+]</pre>
+
+  <p><code>manual_stock</code> is <code>null</code> for items not yet counted.</p>
+
+  <!-- 9. Valuation -->
+  <h3>9. Get Valuation Summary</h3>
+  <div class="endpoint">
+    <span class="method get">GET</span>
+    <span class="path">/api/audit/{audit_id}/valuation/</span>
+  </div>
+  <p>Returns a financial breakdown of all stock discrepancies, using unit prices from the inventory system.</p>
+
+  <p><strong>Response — HTTP 200</strong></p>
+  <pre><span class="key">"audit_id"</span>: <span class="num">42</span>,
+<span class="key">"unit_description"</span>: <span class="str">"Warehouse A"</span>,
+<span class="key">"username"</span>: <span class="str">"john"</span>,
+<span class="key">"shortage_items"</span>: [
+  {
+    <span class="key">"productcode"</span>: <span class="str">"P001"</span>,
+    <span class="key">"productname"</span>: <span class="str">"Paracetamol 500mg"</span>,
+    <span class="key">"quantity"</span>: <span class="num">5.0</span>,
+    <span class="key">"unit_price"</span>: <span class="num">12.50</span>,
+    <span class="key">"total_value"</span>: <span class="num">62.50</span>
+  }
+],
+<span class="key">"excess_items"</span>: [ ... ],
+<span class="key">"shortage_total_value"</span>: <span class="num">62.50</span>,
+<span class="key">"excess_total_value"</span>: <span class="num">0.0</span></pre>
+
+  <p><code>quantity</code> is the absolute difference between manual and system stock. <code>total_value</code> = <code>quantity × unit_price</code>.</p>
+
+  <!-- 10. Delete -->
+  <h3>10. Delete an Audit</h3>
+  <div class="endpoint">
+    <span class="method post">POST</span>
+    <span class="path">/api/audit/{audit_id}/delete/</span>
+  </div>
+  <p>Permanently deletes an audit and all its item records.</p>
+
+  <p><strong>Request body</strong><br>Empty (send <code>Content-Type: application/json</code> with an empty body or <code>{}</code>).</p>
+
+  <p><strong>Response — HTTP 200</strong><br>Any JSON body. A <code>200</code> status is sufficient.</p>
+
+  <!-- Error format -->
+  <h3>Error Response Format</h3>
+  <p>For any error, the server should return an appropriate HTTP status code and a JSON body in this shape:</p>
+  <pre><span class="key">"error"</span>: <span class="str">"A human-readable description of the error."</span></pre>
+
+  <div class="note">
+    The app stores both <code>sessionid</code> and <code>csrftoken</code> as cookies and automatically attaches them. If you implement the backend with Django, enabling <code>SessionMiddleware</code> and <code>CsrfViewMiddleware</code> covers this out of the box.
+  </div>
+
+  <hr />
+
+  <h2 id="contact">Contact &amp; Support</h2>
+  <p>If you experience a problem not covered above, please send an email to <a href="mailto:stockauditapp.ios@gmail.com
+    ">stockauditapp.ios@gmail.com</a>.</p>
+
+  <hr />
+  <footer>
+    &copy; 2026 Karthick Jeyapal. All rights reserved.
+  </footer>
+
+</body>
+</html>
