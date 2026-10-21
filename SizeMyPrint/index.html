@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Support — Size My Print</title>
+  <meta name="description" content="Support for Size My Print, an iOS app that places photos at a real paper size so you can print or save them.">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --text: #1c1c1e;
+      --muted: #4a4a4f;
+      --line: #d8d8dc;
+      --bg: #ffffff;
+      --soft: #f4f4f6;
+      --accent: #0b5cab;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text: #f2f2f7;
+        --muted: #c7c7cc;
+        --line: #3a3a3c;
+        --bg: #1c1c1e;
+        --soft: #2c2c2e;
+        --accent: #64b5f6;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+    }
+    main {
+      max-width: 42rem;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 4rem;
+    }
+    header { margin-bottom: 2rem; }
+    h1 {
+      font-size: 2rem;
+      line-height: 1.2;
+      margin: 0 0 0.5rem;
+      letter-spacing: -0.02em;
+    }
+    h2 {
+      font-size: 1.25rem;
+      line-height: 1.3;
+      margin: 2.25rem 0 0.6rem;
+    }
+    p, li { margin: 0.6rem 0; }
+    ul, ol { padding-left: 1.2rem; }
+    a { color: var(--accent); }
+    .meta { color: var(--muted); margin: 0; }
+    .summary {
+      background: var(--soft);
+      border-radius: 12px;
+      padding: 1rem 1.1rem;
+      margin: 1.5rem 0 0;
+    }
+    .summary p:first-child { margin-top: 0; }
+    .summary p:last-child { margin-bottom: 0; }
+    footer {
+      margin-top: 2.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Support</h1>
+      <p class="meta">Size My Print for iPhone and iPad</p>
+    </header>
+
+    <div class="summary">
+      <p>Size My Print places your photos on a real paper size. You set the printed width and height, then print with AirPrint or save a PDF or JPEG.</p>
+    </div>
+
+    <h2>Place a photo</h2>
+    <ol>
+      <li>Choose Portrait or Landscape.</li>
+      <li>Choose a paper size. A4 and US Letter are at the top. More sizes are listed under ISO, North America, and Photo.</li>
+      <li>Tap <strong>Add Photos</strong> to choose images from your library, up to 20 at a time. Tap <strong>Files</strong> to import image files. JPEG, PNG, HEIC, and other image files work.</li>
+      <li>Drag a photo to move it. Drag a corner to resize it. Pinch the page to look closer, then tap <strong>Fit</strong> to see the whole page again.</li>
+    </ol>
+    <p>Paper sizes include A3, A4, A5, A6, and B5; US Letter, Legal, Tabloid, and Executive; and photo sizes 4×6, 5×7, and 8×10.</p>
+
+    <h2>Set an exact size</h2>
+    <p>Select a photo and tap the size label on it. The label shows width, height, and DPI. Enter the width and height you want, then tap <strong>Apply</strong>.</p>
+    <p>The unit is inches, centimeters, or millimeters. Change it from the <strong>in</strong>, <strong>cm</strong>, or <strong>mm</strong> control in the top corner. The app remembers your choice on this device.</p>
+    <p><strong>Lock Aspect Ratio</strong> keeps the photo’s shape while you resize. Turn the lock off to set width and height separately. The photo is then cropped to fit that rectangle. The same lock sits beside the size label on the page.</p>
+
+    <h2>Crop and arrange</h2>
+    <p>Select a photo to use the tools along the bottom of the screen.</p>
+    <ul>
+      <li><strong>Crop.</strong> Drag an edge to trim. Pinch to zoom. Drag inside the photo to reposition it in the frame.</li>
+      <li><strong>Align.</strong> Place the photo against the left, center, right, top, middle, or bottom of the page.</li>
+      <li><strong>Rotate</strong> turns the photo a quarter turn.</li>
+      <li><strong>Flip</strong> mirrors it horizontally or vertically.</li>
+      <li><strong>Duplicate</strong> adds another copy. <strong>Delete</strong> removes the selected photo.</li>
+    </ul>
+
+    <h2>Change the page</h2>
+    <p>Tap the paper name at the top of the editor to pick another size or orientation. Photos already on the page keep their measurements.</p>
+
+    <h2>Print</h2>
+    <ol>
+      <li>Tap the share button, then <strong>Print</strong>.</li>
+      <li>Choose <strong>Color</strong> or <strong>Grayscale</strong>, then tap <strong>Print</strong>.</li>
+      <li>In the AirPrint sheet, choose your printer and the same paper size as the page.</li>
+    </ol>
+    <p>When the sheet matches the page, the print stays at the size you set. A different sheet fits the page onto that paper, so the measurements change. A photo that runs to the edge of the page can be clipped by the printer’s margins. Turn on borderless printing in the printer options if you need the image to reach the edge.</p>
+
+    <h2>Save a PDF or JPEG</h2>
+    <p>Tap the share button, then <strong>Save PDF</strong> or <strong>Save JPEG</strong>. The system share sheet opens. Choose where the file should go, such as Files, Mail, or another app.</p>
+
+    <h2>If a photo looks soft</h2>
+    <p>An orange warning means a photo is below about 200 DPI at the size you set, so it may look pixelated when printed. The size label turns orange as well. Print it smaller, or start from a higher-resolution image. Exact Size shows the DPI for the size you are about to apply.</p>
+
+    <h2>If a photo will not add</h2>
+    <p>The app shows “Couldn’t Add Image” when a file is not a readable image. Choose a JPEG, PNG, HEIC, or another image file.</p>
+
+    <h2>Privacy</h2>
+    <p>Photos you add stay on your device. The app does not collect personal information. The <a href="privacy.html">privacy policy</a> describes what the app accesses, how printing and sharing work, and how to remove the on-device copies.</p>
+    <p>Size My Print requires iOS 17 or later.</p>
+
+    <footer>
+      <p>Size My Print · Karthick Jeyapal</p>
+    </footer>
+  </main>
+</body>
+</html>
